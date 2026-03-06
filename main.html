@@ -1,25 +1,62 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Issues Tracker</title>
-</head>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- custom css link  -->
+    <link rel="stylesheet" href="./css/style.css" />
+    <!-- tailwind and daisy ul link  -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body>
+    <header class="flex justify-between items-center shadow px-20 p-2">
+      <div class="left flex justify-center items-center">
+        <img src="./assets/github-logo.png" alt="" class="w-10" />
+        <h1 class="text-xl font-semibold">GitHub Issues Tracker</h1>
+      </div>
+      <div class="right">
+        <input
+          type="text"
+          name=""
+          id=""
+          placeholder="search issues"
+          class="px-2 py-1 rounded"
+        />
+        <button class="btn bg-blue-600 text-white">New Issue</button>
+      </div>
+    </header>
+    <!-- header done  -->
+    <section class="w-10/12 shadow-xl mx-auto mt-10 p-3">
+      <button class="btn">All</button>
+      <button class="btn">Open</button>
+      <button class="btn">Closed</button>
+    </section>
+    <!-- all open Closed -->
+    <section class="w-10/12 shadow-xl mx-auto mt-10 p-3">
+      <div class="flex justify-between items-center">
+        <div class="left flex">
+          <img src="./assets/Aperture.png" alt="" />
+          <span>50 issues</span>
+          <!-- <p>Track and manage your project issues</p> -->
+        </div>
+        <div class="right">
+          <input type="radio" />
+          <span>open</span>
+          <input type="radio" />
+          <span>closed</span>
+        </div>
+      </div>
+      <hr class="mt-5" />
 
-<body>
+      <div id="card" class="grid grid-cols-4 gap-5 mt-3"></div>
+    </section>
 
-<h2>Issues Tracker</h2>
-
-<input id="search" placeholder="search issue">
-<button onclick="searchIssue()">Search</button>
-
-<br><br>
-
-<button onclick="loadIssues()">All</button>
-<button onclick="loadOpen()">Open</button>
-<button onclick="loadClosed()">Closed</button>
-
-<div id="card-container"></div>
-
-<script src="script.js"></script>
-
-</body>
+    <script src="./main.js"></script>
+  </body>
 </html>
