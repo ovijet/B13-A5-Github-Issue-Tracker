@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Issues Tracker</title>
+    <!-- custom css link  -->
+    <link rel="stylesheet" href="./css/style.css" />
+    <!-- tailwind and daisy ul link  -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body>
+    <!-- <main>
+      <div class="form text-center">
+        <div class="">
+          <img src="./assets/github-logo.png" alt="" />
+          <h1>GitHub Issues Tracker</h1>
+          <p>Sign in to manage your issues</p>
+        </div>
+
+      </div>
+    </main> -->
+    <div class="min-h-screen max-w-md  mx-auto ">
+      <div class="pt-20">
+        <div
+          class="card bg-base-100  max-w-lg  shrink-0 shadow-2xl mx-auto bg-white"
+        >
+        <div class="text-center">
+        <div class="">
+          <img src="./assets/github-logo.png" alt="" class="mx-auto mt-6"/>
+          <h1 class="text-3xl font-semibold mt-5">GitHub Issues Tracker</h1>
+          <p class="mt-5 text-xl">Sign in to manage your issues</p>
+        </div>
+      </div>
+          <div class="card-body">
+            <fieldset class="fieldset ">
+              <label class="label text-xl font-[5px] text-black"
+                >username</label
+              >
+              <input
+                id="input-field"
+                type="text"
+                class="input rounded-lg w-full text-[16px]"
+                placeholder="Enter username"
+              />
+              <!-- <p>admin</p> -->
+              <label class="label text-xl font-[5px] text-black"
+                >password</label
+              >
+              <input
+                id="password-field"
+                type="password"
+                class="input rounded-lg w-full text-[16px]"
+                placeholder="Enter Password"
+              />
+              <!-- <div><a class="link link-hover">Forgot password?</a></div> -->
+              <button
+                id="btn"
+                class="btn btn-neutral mt-6 bg-blue-700 rounded-lg"
+              >
+                sign up
+              </button>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- js link  -->
+    <script src="./script.js"></script>
+  </body>
+</html>
