@@ -5,7 +5,13 @@ const total = document.getElementById("total");
 let allCard = document.getElementById("card");
 let openRadio = document.getElementById("open-radio");
 let closeRadio = document.getElementById("close-radio");
-let cardModal=document.getElementById('cardModal')
+let cardModal = document.getElementById("cardModal");
+let title = document.getElementById("title");
+let statas = document.getElementById("status");
+let description = document.getElementById("description");
+// let priority = document.getElementById("priority");
+let updatedAt = document.getElementById("updatedAt");
+let createdAt = document.getElementById("createdAt");
 
 let current = "all";
 
@@ -114,12 +120,12 @@ function displayData(issues) {
         <div class="card-body space-y-4">
           <div class="flex justify-between">
             <img src="./assets/Open-Status.png" alt="" />
-            <span class="bg-red-200 px-5 py-1 rounded-full text-lg uppercase">${issue.priority}</span>
+            <span class="bg-red-200 px-2 py-1 rounded-full text-lg uppercase">${issue.priority}</span>
           </div>
           <h2 class="card-title">${issue.title}</h2>
           <p class='line-clamp-2'>${issue.description}</p>
           <div class="grid grid-cols-2 gap-2">
-            <span class="uppercase bg-red-100 px-5 py-0.5 rounded-full">${issue.labels[0]}</span>
+            <span class="uppercase bg-red-100 px- py-0.5 rounded-full">${issue.labels[0]}</span>
             <span class="rounded-full uppercase px-10 py-0.5 bg-yellow-100">${issue.labels[1]}</span>
           </div>
           <hr />
@@ -144,12 +150,73 @@ closeRadio.addEventListener("click", () => {
   document.body.style.color = "purple";
 });
 
-
 //modal set
-async function openModel(elementId){
+async function openModel(elementId) {
   console.log(elementId);
-  let res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${elementId}`)
-  let data = await res.json()
-  console.log(data.data);
-  cardModal.showModal()
+  let res = await fetch(
+    `https://phi-lab-server.vercel.app/api/v1/lab/issue/${elementId}`,
+  );
+  let data = await res.json();
+  let dataDetails = data.data;
+  title.textContent = dataDetails.title;
+  description.textContent = dataDetails.description;
+  statas.innerText = dataDetails.status;
+  updatedAt.textContent = dataDetails.updatedAt;
+  createdAt.textContent = dataDetails.createdAt;
+  // priority.textContent = dataDetails.priority;
+  cardModal.showModal();
+}
+
+// input
+let searchBtn = document.getElementById("searchBtn");
+
+searchBtn.addEventListener("click", () => {
+  let text = document.getElementById("searchInput").value;
+
+  searchIssues(text);
+});
+async function searchIssues(text) {
+  let url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${text}`;
+
+  let res = await fetch(url);
+  let data = await res.json();
+
+  displayIssues(data.data);
+}
+function displayIssues(issues) {
+  let card = document.getElementById("card");
+  card.innerHTML = "";
+
+  issues.forEach((element) => {
+    let div = document.createElement("div");
+
+    div.innerHTML = `<div class="card bg-base-100 shadow-sm space-y-4 h-full">
+          <div class="card-body space-y-4" onclick="openModel(${element.id})">
+            <div class="flex justify-between">
+              <img src="./assets/Open-Status.png" alt="" />
+              <span class="bg-red-200 px-5 py-1 rounded-full text-lg uppercase"
+                >${element.priority}</span
+              >
+            </div>
+            <h2 class="card-title">${element.title}</h2>
+            <p class='line-clamp-2'>${element.description}</p>
+            <div class="grid grid-cols-2 gap-2">
+              <span class="uppercase bg-red-100 px-5 py-0.5 rounded-full"
+                >${element.labels[0]}</span
+              >
+              <span
+                class="rounded-full uppercase px-10 py-0.5 bg-yellow-100"
+                >${element.labels[1]}</span
+              >
+            </div>
+            <hr />
+            <div class="gap-3 space-y-4">
+              <p>${element.createdAt}</p>
+              <p>${element.updatedAt}</p>
+            </div>
+          </div>
+        </div>`;
+    card.appendChild(div);
+  });
+  total.innerText = card.children.length;
 }
