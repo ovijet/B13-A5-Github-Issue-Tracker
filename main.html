@@ -33,20 +33,26 @@
     </header>
     <!-- header done  -->
     <section class="w-10/12 shadow-xl mx-auto mt-10 p-3">
-      <button class="btn">All</button>
-      <button class="btn">Open</button>
-      <button class="btn">Closed</button>
+      <button id="all-btn" onclick="toggleStyle('all-btn')" class="btn">
+        All
+      </button>
+      <button id="open-btn" onclick="toggleStyle('open-btn')" class="btn">
+        Open
+      </button>
+      <button id="closed-btn" onclick="toggleStyle('closed-btn')" class="btn">
+        Closed
+      </button>
     </section>
     <!-- all open Closed -->
     <section class="w-10/12 shadow-xl mx-auto mt-10 p-3">
       <div class="flex justify-between items-center">
         <div class="left flex">
           <img src="./assets/Aperture.png" alt="" />
-          <span>50 issues</span>
-          <!-- <p>Track and manage your project issues</p> -->
+          <span class="flex gap-2 text-xl font-bold"><p id="total"></p>issues</span>
         </div>
+        <p class="inline">Track and manage your project issues</p>
         <div class="right">
-          <input type="radio" />
+          <input type="radio" class="text-red-600"/>
           <span>open</span>
           <input type="radio" />
           <span>closed</span>
