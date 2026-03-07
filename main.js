@@ -3,6 +3,9 @@ let openBtn = document.getElementById("open-btn");
 let closedBtn = document.getElementById("closed-btn");
 const total = document.getElementById("total");
 let allCard = document.getElementById("card");
+let openRadio = document.getElementById("open-radio");
+let closeRadio = document.getElementById("close-radio");
+let cardModal=document.getElementById('cardModal')
 
 let current = "all";
 
@@ -19,14 +22,14 @@ async function lodeData() {
     // card er border set if condition diya
 
     if (element.status === "open") {
-      div.style.borderTop = "4px solid green";
+      div.style.borderTop = "4px solid #00A96E";
       div.style.borderRadius = "5px";
     } else {
-      div.style.borderTop = "4px solid purple";
+      div.style.borderTop = "4px solid #A855F7";
       div.style.borderRadius = "5px";
     }
-    div.innerHTML = `<div class="card bg-base-100 shadow-sm space-y-4 w-[250] h-[250]">
-          <div class="card-body space-y-4">
+    div.innerHTML = `<div class="card bg-base-100 shadow-sm space-y-4 h-full">
+          <div class="card-body space-y-4" onclick="openModel(${element.id})">
             <div class="flex justify-between">
               <img src="./assets/Open-Status.png" alt="" />
               <span class="bg-red-200 px-5 py-1 rounded-full text-lg uppercase"
@@ -75,48 +78,78 @@ toggleStyle("all-btn");
 
 lodeData();
 
+// All / Open / Closed buttons event listener
+allBtn.addEventListener("click", () => filterIssues("all"));
+openBtn.addEventListener("click", () => filterIssues("open"));
+closedBtn.addEventListener("click", () => filterIssues("closed"));
 
-
-
-
-// just
-
-openBtn.addEventListener("click", function () {
-  filterIssues("open");
-});
-
-async function filterIssues(status) {
+// Filter issues based on button clicked
+async function filterIssues(type) {
   let res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
   let data = await res.json();
-
   let issues = data.data;
 
-  if (status === "open") {
-    issues = issues.filter((issue) => issue.status === "open");
+  if (type === "open") {
+    issues = issues.filter((issue) => issue.priority.toLowerCase() === "high");
+    // issues = issues.filter((issue) => issue.priority.toLowerCase() === "medium");
+  } else if (type === "closed") {
+    issues = issues.filter((issue) => issue.priority.toLowerCase() === "low");
   }
-
-  if (status === "closed") {
-    issues = issues.filter((issue) => issue.status === "closed");
-  }
+  // else type === "all" → show all, no filtering
 
   displayData(issues);
 }
+
+// Display filtered data
 function displayData(issues) {
   let cardContainer = document.getElementById("card");
-
   cardContainer.innerHTML = "";
-
   issues.forEach((issue) => {
     let div = document.createElement("div");
-  div.innerHTML = `
-      <div class="card bg-base-100 w-96 shadow-sm p-3 my-2">
-        <h2 class="card-title">${issue.title}</h2>
-        <p>Status: ${issue.status}</p>
-        <p>Priority: ${issue.priority}</p>
-        <p>Category: ${issue.category}</p>
+
+    let borderColor = issue.status === "open" ? "green" : "purple";
+
+    div.innerHTML = `
+      <div class="card bg-base-100 shadow-sm space-y-4" style="border-top: 4px solid ${borderColor}; border-radius: 5px;">
+        <div class="card-body space-y-4">
+          <div class="flex justify-between">
+            <img src="./assets/Open-Status.png" alt="" />
+            <span class="bg-red-200 px-5 py-1 rounded-full text-lg uppercase">${issue.priority}</span>
+          </div>
+          <h2 class="card-title">${issue.title}</h2>
+          <p class='line-clamp-2'>${issue.description}</p>
+          <div class="grid grid-cols-2 gap-2">
+            <span class="uppercase bg-red-100 px-5 py-0.5 rounded-full">${issue.labels[0]}</span>
+            <span class="rounded-full uppercase px-10 py-0.5 bg-yellow-100">${issue.labels[1]}</span>
+          </div>
+          <hr />
+          <div class="gap-3 space-y-4">
+            <p>${issue.createdAt}</p>
+            <p>${issue.updatedAt}</p>
+          </div>
+        </div>
       </div>
     `;
-
     cardContainer.append(div);
   });
+
+  total.innerText = cardContainer.children.length;
+}
+
+//radio
+openRadio.addEventListener("click", () => {
+  document.body.style.color = "green";
+});
+closeRadio.addEventListener("click", () => {
+  document.body.style.color = "purple";
+});
+
+
+//modal set
+async function openModel(elementId){
+  console.log(elementId);
+  let res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${elementId}`)
+  let data = await res.json()
+  console.log(data.data);
+  cardModal.showModal()
 }

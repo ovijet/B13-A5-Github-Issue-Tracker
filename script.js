@@ -10,8 +10,9 @@ btn.addEventListener("click", function () {
   if (inputValue === "admin" && passwordValue === "admin123") {
     alert("login-success");
     window.location = "main.html";
+    return;
   } else {
-    alert("tu gar mara bokacoda");
+    alert("thik kore username da bokacoda");
   }
 });
 // login done
