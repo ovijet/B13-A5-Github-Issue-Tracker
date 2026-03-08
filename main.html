@@ -3,7 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>GitHub Issues Tracker</title>
+    <!-- font awesome  -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <!-- custom css link  -->
     <link rel="stylesheet" href="./css/style.css" />
     <!-- tailwind and daisy ul link  -->
@@ -24,11 +32,13 @@
         <input
           type="text"
           name=""
-          id="searchInput" 
+          id="searchInput"
           placeholder="search issues"
           class="px-2 py-1 rounded"
         />
-        <button class="btn bg-blue-600 text-white" id="searchBtn">New Issue</button>
+        <button class="btn bg-blue-600 text-white" id="searchBtn">
+          New Issue
+        </button>
       </div>
     </header>
     <!-- header done  -->
@@ -45,58 +55,87 @@
     </section>
     <!-- all open Closed -->
     <section class="w-10/12 shadow-xl mx-auto mt-10 p-3">
-      <div class="flex justify-between items-center">
-        <div class="left flex">
-          <img src="./assets/Aperture.png" alt="" />
-          <span class="flex gap-2 text-xl font-bold"
-            ><p id="total"></p>
-            issues</span
-          >
+      <div class="flex justify-between items-center flex-wrap">
+        <div class="left flex items-center gap-2">
+          <div class="">
+            <img src="./assets/Aperture.png" alt="" class="bg-[#c8bbea] rounded-full p-2" />
+          </div>
+          <div class="">
+            <h1 class="flex gap-2 text-xl font-bold">
+              <p id="total">0</p>
+              issues
+            </h1>
+            <span class="text-xl text-gray-500">Track and manage your project issues</span>
+          </div>
         </div>
-        <p class="inline">Track and manage your project issues</p>
-        <div class="right">
-          <input type="radio" class="" name="click" id="open-radio" />
-          <span>open</span>
-          <input type="radio" name="click" id="close-radio" />
-          <span>closed</span>
+
+        <div class="right flex gap-2">
+          <p><i class="fa-regular fa-circle text-sm text-[#00a96e] rounded-full"></i>open</p>
+          <p><i class="fa-regular fa-circle text-[#a855f7]"></i>closed</p>
         </div>
       </div>
-      <hr class="mt-5" />
+      <hr class="mt-5 text-gray-300" />
 
-      <div id="card" class="grid grid-cols-4 gap-5 mt-3 h-full"></div>
+      <div id="card" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-3 h-full"></div>
     </section>
     <!-- modal -->
-    >
+    
     <dialog id="cardModal" class="modal">
       <div class="modal-box">
-        <div class="flex justify-between">
-          <img src="./assets/Open-Status.png" alt="" />
-          <span
-            class="bg-red-200 px-5 py-1 rounded-full text-lg uppercase"
-          >high</span>
+        <div class="">
+          <h3 class="text-lg font-bold" id="title">
+            Fix navigation menu on mobile devices
+          </h3>
+
+          <div class="flex gap-5">
+            <span
+              id="status"
+              class="bg-green-400 px-2 py-1 rounded-full text-sm uppercase"
+              >open</span
+            >
+            <li id="name">john_doe</li>
+            <li id="time">2024-01-15</li>
+          </div>
         </div>
-        <h3 class="text-lg font-bold" id="title">
-          Fix navigation menu on mobile devices
-        </h3>
+        <div class="space-y-5 mt-5">
+          <span
+            id="labels"
+            class="uppercase bg-red-100 px-5 py-0.5 rounded-full"
+            >bug</span
+          >
+          <span
+            id="labels"
+            class="rounded-full uppercase px-10 py-0.5 bg-yellow-100"
+            >help wanted</span
+          >
+        </div>
         <p class="py-4" id="description">
           The navigation menu doesn't collapse properly on mobile devices. Need
           to fix the responsive behavior.
         </p>
-        <p id="status">open</p>
-        <div class="grid grid-cols-2 gap-2">
-          <span id="labels" class="uppercase bg-red-100 px-5 py-0.5 rounded-full"
-            >bug</span
-          >
-          <span id="labels" class="rounded-full uppercase px-10 py-0.5 bg-yellow-100"
-            >help wanted</span
-          >
-        </div>
-        <hr class="mt-2"/>
+        <!-- <p >open</p> -->
         <div class="gap-3 space-y-4">
-          <p id="createdAt">2024-01-15T10:30:00Z</p>
-          <p id="updatedAt">2024-01-15T10:30:00Z</p>
+          <!-- <p id="createdAt"></p>
+          <p id="updatedAt"></p> -->
           <!-- <span id="priority" class="bg-red-200 px-5 py-1 rounded-full text-lg uppercase"
                 >high</span> -->
+        </div>
+        <div
+          class="w-[450px] h-auto bg-gray-200 flex items-center p-5 capitalize mt-2"
+        >
+          <div class="">
+            <label class="text-gray-400 text-lg">assignee:</label>
+            <p class="text-2xl font-bold" id="assignee">john_doe</p>
+          </div>
+          <div class="ml-20">
+            <label class="text-gray-400 text-lg">priority:</label>
+            <p
+              class="text-sm font-bold bg-red-600 p-2 text-center rounded-full text-white"
+              id="priority"
+            >
+              high
+            </p>
+          </div>
         </div>
         <div class="modal-action">
           <form method="dialog">

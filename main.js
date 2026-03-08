@@ -9,9 +9,12 @@ let cardModal = document.getElementById("cardModal");
 let title = document.getElementById("title");
 let statas = document.getElementById("status");
 let description = document.getElementById("description");
-// let priority = document.getElementById("priority");
-let updatedAt = document.getElementById("updatedAt");
-let createdAt = document.getElementById("createdAt");
+let priority = document.getElementById("priority");
+let nam =document.getElementById('name')
+let time =document.getElementById('time')
+let assignee=document.getElementById('assignee')
+// let updatedAt = document.getElementById("updatedAt");
+// let createdAt = document.getElementById("createdAt");
 
 let current = "all";
 
@@ -44,17 +47,17 @@ async function lodeData() {
             </div>
             <h2 class="card-title">${element.title}</h2>
             <p class='line-clamp-2'>${element.description}</p>
-            <div class="grid grid-cols-2 gap-2">
-              <span class="uppercase bg-red-100 px-5 py-0.5 rounded-full"
+            <div class="p-0 flex-wrap gap-2">
+              <span class="uppercase bg-red-100 px-2 py-0.5 rounded-full"
                 >${element.labels[0]}</span
               >
               <span
-                class="rounded-full uppercase px-10 py-0.5 bg-yellow-100"
+                class="rounded-full uppercase px-1 py-0.5 bg-yellow-100"
                 >${element.labels[1]}</span
               >
             </div>
-            <hr />
-            <div class="gap-3 space-y-4">
+            <hr class='text-gray-300'/>
+            <div class="gap-3 space-y-4 text-gray-400">
               <p>${element.createdAt}</p>
               <p>${element.updatedAt}</p>
             </div>
@@ -96,12 +99,11 @@ async function filterIssues(type) {
   let issues = data.data;
 
   if (type === "open") {
-    issues = issues.filter((issue) => issue.priority.toLowerCase() === "high");
+    issues = issues.filter((issue) => issue.status.toLowerCase() === 'open');
     // issues = issues.filter((issue) => issue.priority.toLowerCase() === "medium");
   } else if (type === "closed") {
-    issues = issues.filter((issue) => issue.priority.toLowerCase() === "low");
+    issues = issues.filter((issue) => issue.status.toLowerCase() === "closed");
   }
-  // else type === "all" → show all, no filtering
 
   displayData(issues);
 }
@@ -114,6 +116,8 @@ function displayData(issues) {
     let div = document.createElement("div");
 
     let borderColor = issue.status === "open" ? "green" : "purple";
+    //  let borderColor =
+    //   issue.priority.toLowerCase() === "low" ? "purple" : "green";
 
     div.innerHTML = `
       <div class="card bg-base-100 shadow-sm space-y-4" style="border-top: 4px solid ${borderColor}; border-radius: 5px;">
@@ -124,12 +128,12 @@ function displayData(issues) {
           </div>
           <h2 class="card-title">${issue.title}</h2>
           <p class='line-clamp-2'>${issue.description}</p>
-          <div class="grid grid-cols-2 gap-2">
-            <span class="uppercase bg-red-100 px- py-0.5 rounded-full">${issue.labels[0]}</span>
-            <span class="rounded-full uppercase px-10 py-0.5 bg-yellow-100">${issue.labels[1]}</span>
+          <div class="gap-2">
+            <span class="uppercase bg-red-100 px-2 py-0.5 rounded-full">${issue.labels[0]}</span>
+            <span class="rounded-full uppercase px-1 py-0.5 bg-yellow-100">${issue.labels[1]}</span>
           </div>
           <hr />
-          <div class="gap-3 space-y-4">
+          <div class=" text-gray-400">
             <p>${issue.createdAt}</p>
             <p>${issue.updatedAt}</p>
           </div>
@@ -143,12 +147,12 @@ function displayData(issues) {
 }
 
 //radio
-openRadio.addEventListener("click", () => {
-  document.body.style.color = "green";
-});
-closeRadio.addEventListener("click", () => {
-  document.body.style.color = "purple";
-});
+// openRadio.addEventListener("click", () => {
+//   document.body.style.color = "green";
+// });
+// closeRadio.addEventListener("click", () => {
+//   document.body.style.color = "purple";
+// });
 
 //modal set
 async function openModel(elementId) {
@@ -161,9 +165,10 @@ async function openModel(elementId) {
   title.textContent = dataDetails.title;
   description.textContent = dataDetails.description;
   statas.innerText = dataDetails.status;
-  updatedAt.textContent = dataDetails.updatedAt;
-  createdAt.textContent = dataDetails.createdAt;
-  // priority.textContent = dataDetails.priority;
+  priority.textContent = dataDetails.priority;
+  nam.textContent=dataDetails.author
+  time.textContent=dataDetails.updatedAt
+assignee.textContent=dataDetails.assignee
   cardModal.showModal();
 }
 
@@ -190,7 +195,7 @@ function displayIssues(issues) {
   issues.forEach((element) => {
     let div = document.createElement("div");
 
-    div.innerHTML = `<div class="card bg-base-100 shadow-sm space-y-4 h-full">
+   div.innerHTML = `<div class="card bg-base-100 shadow-sm space-y-4 h-full">
           <div class="card-body space-y-4" onclick="openModel(${element.id})">
             <div class="flex justify-between">
               <img src="./assets/Open-Status.png" alt="" />
@@ -200,17 +205,17 @@ function displayIssues(issues) {
             </div>
             <h2 class="card-title">${element.title}</h2>
             <p class='line-clamp-2'>${element.description}</p>
-            <div class="grid grid-cols-2 gap-2">
-              <span class="uppercase bg-red-100 px-5 py-0.5 rounded-full"
+            <div class="p-0 flex-wrap gap-2">
+              <span class="uppercase bg-red-100 px-2 py-0.5 rounded-full"
                 >${element.labels[0]}</span
               >
               <span
-                class="rounded-full uppercase px-10 py-0.5 bg-yellow-100"
+                class="rounded-full uppercase px-1 py-0.5 bg-yellow-100"
                 >${element.labels[1]}</span
               >
             </div>
-            <hr />
-            <div class="gap-3 space-y-4">
+            <hr class='text-gray-300'/>
+            <div class="gap-3 space-y-4 text-gray-400">
               <p>${element.createdAt}</p>
               <p>${element.updatedAt}</p>
             </div>
