@@ -58,7 +58,7 @@ async function lodeData() {
               >
               <span
                 class="rounded-full uppercase px-1 py-0.5 bg-yellow-100"
-                >${element.labels[1] ? element.labels[1] : "api te nai"}</span
+                >${element.labels[1] ? element.labels[1] : "no entry"}</span
               >
             </div>
             <hr class='text-gray-300'/>
