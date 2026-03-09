@@ -171,9 +171,10 @@ async function openModel(elementId) {
   priority.textContent = dataDetails.priority;
   nam.textContent = dataDetails.author;
   time.textContent = dataDetails.updatedAt;
-  assignee.textContent = dataDetails.assignee;
+  assignee.textContent = dataDetails.assignee || "no name";
   labels.innerText = dataDetails.labels[0];
-  label2.innerText = dataDetails.labels[1];
+  label2.innerText = dataDetails.labels[1] || "no entry";
+
   cardModal.showModal();
 }
 
@@ -223,7 +224,7 @@ function displayIssues(issues) {
               >
               <span
                 class="rounded-full uppercase px-1 py-0.5 bg-yellow-100"
-                >${element.labels[1] ? element.labels[1] : "api te nai"}</span
+                >${element.labels[1] ? element.labels[1] : "no entry"}</span
               >
             </div>
             <hr class='text-gray-300'/>
