@@ -23,7 +23,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body>
-    <header class="flex justify-between items-center shadow px-20 p-2">
+    <header
+      class="shadow px-20 p-2 flex flex-col lg:flex-row justify-between items-center gap-5"
+    >
       <div class="left flex justify-center items-center">
         <img src="./assets/github-logo.png" alt="" class="w-10" />
         <h1 class="text-xl font-semibold">GitHub Issues Tracker</h1>
@@ -36,7 +38,8 @@
           placeholder="search issues"
           class="px-2 py-1 rounded"
         />
-        <button class="btn bg-blue-600 text-white" id="searchBtn">
+        <button class="btn bg-[#4a00ff] text-white" id="searchBtn">
+          <i class="fa-solid fa-plus"></i>
           New Issue
         </button>
       </div>
@@ -58,28 +61,45 @@
       <div class="flex justify-between items-center flex-wrap">
         <div class="left flex items-center gap-2">
           <div class="">
-            <img src="./assets/Aperture.png" alt="" class="bg-[#c8bbea] rounded-full p-2" />
+            <img
+              src="./assets/Aperture.png"
+              alt=""
+              class="bg-[#c8bbea] rounded-full p-2"
+            />
           </div>
           <div class="">
             <h1 class="flex gap-2 text-xl font-bold">
               <p id="total">0</p>
               issues
             </h1>
-            <span class="text-xl text-gray-500">Track and manage your project issues</span>
+            <span class="text-xl text-gray-500"
+              >Track and manage your project issues</span
+            >
           </div>
         </div>
 
         <div class="right flex gap-2">
-          <p><i class="fa-regular fa-circle text-sm text-[#00a96e] rounded-full"></i>open</p>
-          <p><i class="fa-regular fa-circle text-[#a855f7]"></i>closed</p>
+          <p>
+            <i
+              class="fa-regular fa-circle border border-green-400 bg-[#00a96e] rounded-full"
+            ></i
+            >open
+          </p>
+          <p><i class="fa-regular fa-circle border border-green-400 rounded-full bg-[#a855f7]"></i>closed</p>
         </div>
       </div>
       <hr class="mt-5 text-gray-300" />
 
-      <div id="card" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-3 h-full"></div>
+      <div
+        id="card"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-3 h-full"
+      ></div>
+      <div class="h-[50vh] justify-center items-center hidden flex" id="loading-spner">
+        <span class="loading loading-dots loading-lg"></span>
+      </div>
     </section>
     <!-- modal -->
-    
+
     <dialog id="cardModal" class="modal">
       <div class="modal-box">
         <div class="">

@@ -3,16 +3,20 @@ let openBtn = document.getElementById("open-btn");
 let closedBtn = document.getElementById("closed-btn");
 const total = document.getElementById("total");
 let allCard = document.getElementById("card");
-let openRadio = document.getElementById("open-radio");
-let closeRadio = document.getElementById("close-radio");
+// let openRadio = document.getElementById("open-radio");
+// let closeRadio = document.getElementById("close-radio");
 let cardModal = document.getElementById("cardModal");
 let title = document.getElementById("title");
 let statas = document.getElementById("status");
 let description = document.getElementById("description");
 let priority = document.getElementById("priority");
-let nam =document.getElementById('name')
-let time =document.getElementById('time')
-let assignee=document.getElementById('assignee')
+let nam = document.getElementById("name");
+let time = document.getElementById("time");
+let cardContainer = document.getElementById("card");
+let assignee = document.getElementById("assignee");
+
+const loading = document.getElementById("loading-spner");
+console.log(loading);
 // let updatedAt = document.getElementById("updatedAt");
 // let createdAt = document.getElementById("createdAt");
 
@@ -21,8 +25,9 @@ let current = "all";
 // all card er length
 
 async function lodeData() {
-  let cardContainer = document.getElementById("card");
+  loading.classList.remove("hidden");
   let res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
+  loading.classList.add("hidden");
   let data = await res.json();
   // console.log(cardContainer);
   data.data.forEach((element) => {
@@ -85,8 +90,6 @@ function toggleStyle(id) {
 }
 toggleStyle("all-btn");
 
-lodeData();
-
 // All / Open / Closed buttons event listener
 allBtn.addEventListener("click", () => filterIssues("all"));
 openBtn.addEventListener("click", () => filterIssues("open"));
@@ -99,7 +102,7 @@ async function filterIssues(type) {
   let issues = data.data;
 
   if (type === "open") {
-    issues = issues.filter((issue) => issue.status.toLowerCase() === 'open');
+    issues = issues.filter((issue) => issue.status.toLowerCase() === "open");
     // issues = issues.filter((issue) => issue.priority.toLowerCase() === "medium");
   } else if (type === "closed") {
     issues = issues.filter((issue) => issue.status.toLowerCase() === "closed");
@@ -110,7 +113,7 @@ async function filterIssues(type) {
 
 // Display filtered data
 function displayData(issues) {
-  let cardContainer = document.getElementById("card");
+  // let cardContainer = document.getElementById("card");
   cardContainer.innerHTML = "";
   issues.forEach((issue) => {
     let div = document.createElement("div");
@@ -166,9 +169,9 @@ async function openModel(elementId) {
   description.textContent = dataDetails.description;
   statas.innerText = dataDetails.status;
   priority.textContent = dataDetails.priority;
-  nam.textContent=dataDetails.author
-  time.textContent=dataDetails.updatedAt
-assignee.textContent=dataDetails.assignee
+  nam.textContent = dataDetails.author;
+  time.textContent = dataDetails.updatedAt;
+  assignee.textContent = dataDetails.assignee;
   cardModal.showModal();
 }
 
@@ -195,7 +198,7 @@ function displayIssues(issues) {
   issues.forEach((element) => {
     let div = document.createElement("div");
 
-   div.innerHTML = `<div class="card bg-base-100 shadow-sm space-y-4 h-full">
+    div.innerHTML = `<div class="card bg-base-100 shadow-sm space-y-4 h-full">
           <div class="card-body space-y-4" onclick="openModel(${element.id})">
             <div class="flex justify-between">
               <img src="./assets/Open-Status.png" alt="" />
@@ -225,3 +228,5 @@ function displayIssues(issues) {
   });
   total.innerText = card.children.length;
 }
+
+lodeData();
