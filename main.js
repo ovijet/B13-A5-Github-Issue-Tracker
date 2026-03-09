@@ -14,14 +14,14 @@ let nam = document.getElementById("name");
 let time = document.getElementById("time");
 let cardContainer = document.getElementById("card");
 let assignee = document.getElementById("assignee");
-
+const labels = document.getElementById("labels");
+const label2 = document.getElementById("label2");
 const loading = document.getElementById("loading-spner");
 console.log(loading);
 // let updatedAt = document.getElementById("updatedAt");
 // let createdAt = document.getElementById("createdAt");
 
 let current = "all";
-
 // all card er length
 
 async function lodeData() {
@@ -58,7 +58,7 @@ async function lodeData() {
               >
               <span
                 class="rounded-full uppercase px-1 py-0.5 bg-yellow-100"
-                >${element.labels[1]}</span
+                >${element.labels[1] ? element.labels[1] : "api te nai"}</span
               >
             </div>
             <hr class='text-gray-300'/>
@@ -75,9 +75,9 @@ async function lodeData() {
 // all open btn
 
 function toggleStyle(id) {
-  allBtn.classList.remove("bg-[#3B82F6]", "text-white");
-  openBtn.classList.remove("bg-[#3B82F6]", "text-white");
-  closedBtn.classList.remove("bg-[#3B82F6]", "text-white");
+  allBtn.classList.remove("bg-[#4a00ff]", "text-white");
+  openBtn.classList.remove("bg-[#4a00ff]", "text-white");
+  closedBtn.classList.remove("bg-[#4a00ff]", "text-white");
 
   allBtn.classList.add("bg-white", "text-[#64748B]");
   openBtn.classList.add("bg-white", "text-[#64748B]");
@@ -86,7 +86,7 @@ function toggleStyle(id) {
   const selected = document.getElementById(id);
   current = id;
   selected.classList.remove("bg-white", "text-[#64748B]");
-  selected.classList.add("bg-[#3B82F6]", "text-white");
+  selected.classList.add("bg-[#4a00ff]", "text-white");
 }
 toggleStyle("all-btn");
 
@@ -172,6 +172,8 @@ async function openModel(elementId) {
   nam.textContent = dataDetails.author;
   time.textContent = dataDetails.updatedAt;
   assignee.textContent = dataDetails.assignee;
+  labels.innerText = dataDetails.labels[0];
+  label2.innerText = dataDetails.labels[1];
   cardModal.showModal();
 }
 
@@ -185,6 +187,7 @@ searchBtn.addEventListener("click", () => {
 });
 async function searchIssues(text) {
   let url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${text}`;
+ 
 
   let res = await fetch(url);
   let data = await res.json();
@@ -197,6 +200,13 @@ function displayIssues(issues) {
 
   issues.forEach((element) => {
     let div = document.createElement("div");
+     if (element.status === "open") {
+      div.style.borderTop = "4px solid #00A96E";
+      div.style.borderRadius = "5px";
+    } else {
+      div.style.borderTop = "4px solid #A855F7";
+      div.style.borderRadius = "5px";
+    }git 
 
     div.innerHTML = `<div class="card bg-base-100 shadow-sm space-y-4 h-full">
           <div class="card-body space-y-4" onclick="openModel(${element.id})">
@@ -214,7 +224,7 @@ function displayIssues(issues) {
               >
               <span
                 class="rounded-full uppercase px-1 py-0.5 bg-yellow-100"
-                >${element.labels[1]}</span
+                >${element.labels[1] ? element.labels[1] : "api te nai"}</span
               >
             </div>
             <hr class='text-gray-300'/>

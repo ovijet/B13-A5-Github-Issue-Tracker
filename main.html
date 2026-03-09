@@ -36,7 +36,7 @@
           name=""
           id="searchInput"
           placeholder="search issues"
-          class="px-2 py-1 rounded"
+          class="px-2 py-2 rounded"
         />
         <button class="btn bg-[#4a00ff] text-white" id="searchBtn">
           <i class="fa-solid fa-plus"></i>
@@ -85,7 +85,12 @@
             ></i
             >open
           </p>
-          <p><i class="fa-regular fa-circle border border-green-400 rounded-full bg-[#a855f7]"></i>closed</p>
+          <p>
+            <i
+              class="fa-regular fa-circle border border-green-400 rounded-full bg-[#a855f7]"
+            ></i
+            >closed
+          </p>
         </div>
       </div>
       <hr class="mt-5 text-gray-300" />
@@ -94,7 +99,10 @@
         id="card"
         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-3 h-full"
       ></div>
-      <div class="h-[50vh] justify-center items-center hidden flex" id="loading-spner">
+      <div
+        class="h-[50vh] justify-center items-center hidden flex"
+        id="loading-spner"
+      >
         <span class="loading loading-dots loading-lg"></span>
       </div>
     </section>
@@ -124,7 +132,7 @@
             >bug</span
           >
           <span
-            id="labels"
+            id="label2"
             class="rounded-full uppercase px-10 py-0.5 bg-yellow-100"
             >help wanted</span
           >
@@ -145,7 +153,7 @@
         >
           <div class="">
             <label class="text-gray-400 text-lg">assignee:</label>
-            <p class="text-2xl font-bold" id="assignee">john_doe</p>
+            <p class="text-2xl font-bold" id="assignee" onclick="element.labels[1] ? element.labels[1] : 'api te nai'">john_doe</p>
           </div>
           <div class="ml-20">
             <label class="text-gray-400 text-lg">priority:</label>

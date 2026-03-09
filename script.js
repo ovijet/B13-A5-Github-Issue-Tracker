@@ -12,7 +12,7 @@ btn.addEventListener("click", function () {
     window.location = "main.html";
     return;
   } else {
-    alert("thik kore username da bokacoda");
+    alert("wrong userName and password");
   }
 });
 // login done
