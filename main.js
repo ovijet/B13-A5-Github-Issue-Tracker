@@ -17,7 +17,7 @@ let assignee = document.getElementById("assignee");
 const labels = document.getElementById("labels");
 const label2 = document.getElementById("label2");
 const loading = document.getElementById("loading-spner");
-console.log(loading);
+// console.log(loading);
 // let updatedAt = document.getElementById("updatedAt");
 // let createdAt = document.getElementById("createdAt");
 
@@ -171,9 +171,9 @@ async function openModel(elementId) {
   priority.textContent = dataDetails.priority;
   nam.textContent = dataDetails.author;
   time.textContent = dataDetails.updatedAt;
-  assignee.textContent = dataDetails.assignee || "no name";
+  assignee.textContent = dataDetails.assignee || "no assignee";
   labels.innerText = dataDetails.labels[0];
-  label2.innerText = dataDetails.labels[1] || "no entry";
+  label2.innerText = dataDetails.labels[1] || "no labels";
 
   cardModal.showModal();
 }
