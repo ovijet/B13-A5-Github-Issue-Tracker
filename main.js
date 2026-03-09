@@ -187,7 +187,6 @@ searchBtn.addEventListener("click", () => {
 });
 async function searchIssues(text) {
   let url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${text}`;
- 
 
   let res = await fetch(url);
   let data = await res.json();
@@ -200,13 +199,13 @@ function displayIssues(issues) {
 
   issues.forEach((element) => {
     let div = document.createElement("div");
-     if (element.status === "open") {
+    if (element.status === "open") {
       div.style.borderTop = "4px solid #00A96E";
       div.style.borderRadius = "5px";
     } else {
       div.style.borderTop = "4px solid #A855F7";
       div.style.borderRadius = "5px";
-    }git 
+    }
 
     div.innerHTML = `<div class="card bg-base-100 shadow-sm space-y-4 h-full">
           <div class="card-body space-y-4" onclick="openModel(${element.id})">
